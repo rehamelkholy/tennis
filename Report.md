@@ -3,7 +3,7 @@
 # Implementation
 ----------------------------------------------------------------------------------------------------------------------
 ## Learning Algorithm
-The Multiple Agent Deep Deterministic Policy Gradient (MADDPG) Algorithm detailed in [this research paper](https://arxiv.org/pdf/1509.02971.pdf) is used. The algorithm can be outlined as follows:
+The Multiple Agent Deep Deterministic Policy Gradient (MADDPG) Algorithm detailed in [this research paper](https://arxiv.org/pdf/1509.02971.pdf) is used after adjusting for using two agents. The algorithm can be outlined as follows:
 - Randomly initialize critic networks and actors (for each agent).
 - Initialize target networks (for each agent).
 - Initialize replay buffer `R` (one memory for both agents).
@@ -21,7 +21,7 @@ The Multiple Agent Deep Deterministic Policy Gradient (MADDPG) Algorithm detaile
         
     **end for** 
     
-  **end for**
+**end for**
   
 ## Hyperparameters
 I started with the hyperparameters from the previous project, which were not very effective. Then I increased the buffer size and the discount factor, and decreased the batch size to accelerate the training. What really helped stabilize the training was: first, training on the whole episode at a time and removing the limit on time steps (which makes sense because it makes the agent learn more effectively about the entire episode, and it makes tracking progress even easier when the episodes get longer because both agents are actually learning to play well), and, second, increasing the standard diviation (sigma) of the OU Noise to explore the action space more fully and in less timesteps. 
